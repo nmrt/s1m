@@ -1,6 +1,5 @@
-for ([c1, c2] in tuples(random(cells)))
-	if (c1.adjacent(c2))
-		let baby = female(c1, c2).conceive(chance(0.5,
-			male(c1, c2).ejaculate()))
+for ([cell1, cell2] in random(tuples(cells)))
+	let baby = male(cell1, cell2).then(man => man.ejaculate().then(sperm =>
+		female(cell1, cell2).then(woman => woman.conceive(sperm, chance(0.5))))
 
-		world.hasEmptyCellAround(c1, c2).then(c => c.put(baby))
+	world.hasEmptyCellAround(cell1, cell2).then(cell => cell.put(baby))
